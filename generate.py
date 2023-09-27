@@ -1,6 +1,7 @@
 from PIL import Image, ImageDraw, ImageFont, ImageColor
 import datetime
 import os
+import random
 
 def generate_quotes(quote_text, quote_color, quote_background, quote_credit):
     # Mendapatkan tanggal hari ini
@@ -17,8 +18,15 @@ def generate_quotes(quote_text, quote_color, quote_background, quote_credit):
     # Membuat objek draw
     draw = ImageDraw.Draw(image)
 
+    # Menambahkan efek grain ke latar belakang
+    for _ in range(5000):  # Jumlah butiran (sesuaikan dengan keinginan Anda)
+        x = random.randint(0, image.width - 1)
+        y = random.randint(0, image.height - 1)
+        draw.point((x, y), fill=(random.randint(100, 200), random.randint(100, 200), random.randint(100, 200)))
+
     # Menambahkan teks
     font_size = 58
+    # font = ImageFont.truetype('./fonts/history-walker/demo.ttf', size=font_size)
     font = ImageFont.truetype('./fonts/tentang-nanti/demo.otf', size=font_size)
 
     # Mengukur lebar dan tinggi teks menggunakan textbbox
