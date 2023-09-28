@@ -24,7 +24,9 @@ def generate_quotes(quote_text, quote_color, quote_background, quote_credit):
     background_color = ImageColor.getrgb(selected_background)
 
     # Membuat gambar kosong
+    # image = Image.new('RGBA', (1080, 1080), color=(255, 255, 255, 0)) # transparant
     image = Image.new('RGB', (1080, 1080), color=background_color)
+
 
     # Membuat objek draw
     draw = ImageDraw.Draw(image)
@@ -38,9 +40,10 @@ def generate_quotes(quote_text, quote_color, quote_background, quote_credit):
     # Menambahkan teks
     font_size = 58
     font_style = "original;one;two"
+    # font_style = "regular;regular-pro;regular-alt"
     font_selected = font_style.split(';')
-    font_path = f'./fonts/tentang-nanti/{random.choice(font_selected)}.otf'
     font = ImageFont.truetype(f'./fonts/tentang-nanti/{random.choice(font_selected)}.otf', size=font_size)
+    # font = ImageFont.truetype(f'./fonts/dreaming-outloud/{random.choice(font_selected)}.otf', size=font_size)
 
     # Mengukur lebar dan tinggi teks menggunakan textbbox
     text_bbox = draw.textbbox((0, 0), quote_text, font=font)

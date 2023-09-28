@@ -11,3 +11,6 @@ quote_credit = "@everydaywillbeokay"
 
 for quote_text in quotes:
     generate_quotes(quote_text, quote_color, quote_background, quote_credit)
+    # Menyimpan kutipan yang sudah digenerate ke dalam file quote_generated.txt
+    # with open("quote_generated.txt", "a") as file:
+    #     file.write(quote_text + "\n")
