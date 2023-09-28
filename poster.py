@@ -1,7 +1,8 @@
-from instagram_private_api import Client, ClientCompatPatch
+from instagram_private_api import Client, MediaRatios
+from instagram_private_api_extensions import media
 from dotenv import load_dotenv
 import os
-
+from function import *
 # Muat variabel lingkungan dari file .env
 load_dotenv()
 
@@ -9,13 +10,18 @@ load_dotenv()
 username = os.getenv("INSTAGRAM_USERNAME")
 password = os.getenv("INSTAGRAM_PASSWORD")
 
-api = Client(username, password)
-media_path = "./results/20230927/20230927.png"
-caption = "Ini adalah caption untuk gambar Anda. #instabot #python"
-size = (1080, 1080)
+login_pc(username, password)
 
-with open(media_path, 'rb') as photo_file:
-    photo_data = photo_file.read()
+# Membuat koneksi
+# api = Client(username, password)
 
-# Menggunakan foto_file sebagai konten foto
-api.post_photo(photo_data, size, caption=caption, to_reel=False)
+# photo_path = "./results/20230928/20230928.jpeg"
+# caption = "Ini adalah caption untuk gambar Anda. #instabot #python"
+# photo_data, photo_size = media.prepare_image(photo_path, aspect_ratios=MediaRatios.standard)
+# response = api.post_photo(photo_data, photo_size, caption)
+
+# # Periksa respons untuk memastikan foto berhasil diunggah
+# if response.get('status') == 'ok':
+#     print('Foto berhasil diunggah!')
+# else:
+#     print('Gagal mengunggah foto.')

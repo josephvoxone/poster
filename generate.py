@@ -2,15 +2,26 @@ from PIL import Image, ImageDraw, ImageFont, ImageColor
 import datetime
 import os
 import random
+import uuid
+import textwrap
+
+def generate_unique_filename():
+    # Menghasilkan UUID (Universally Unique Identifier)
+    unique_id = uuid.uuid4()
+    return str(unique_id)
 
 def generate_quotes(quote_text, quote_color, quote_background, quote_credit):
     # Mendapatkan tanggal hari ini
     today = datetime.date.today()
     formatted_date = today.strftime("%Y%m%d")
 
+    # Pisahkan daftar warna latar belakang menjadi sebuah daftar Python
+    background_colors = quote_background.split(';')
+    selected_background = random.choice(background_colors)
+
     # Mengubah format warna ke RGB (jika warna dalam format HEX)
     text_color = ImageColor.getrgb(quote_color)
-    background_color = ImageColor.getrgb(quote_background)
+    background_color = ImageColor.getrgb(selected_background)
 
     # Membuat gambar kosong
     image = Image.new('RGB', (1080, 1080), color=background_color)
@@ -26,8 +37,10 @@ def generate_quotes(quote_text, quote_color, quote_background, quote_credit):
 
     # Menambahkan teks
     font_size = 58
-    # font = ImageFont.truetype('./fonts/history-walker/demo.ttf', size=font_size)
-    font = ImageFont.truetype('./fonts/tentang-nanti/demo.otf', size=font_size)
+    font_style = "original;one;two"
+    font_selected = font_style.split(';')
+    font_path = f'./fonts/tentang-nanti/{random.choice(font_selected)}.otf'
+    font = ImageFont.truetype(f'./fonts/tentang-nanti/{random.choice(font_selected)}.otf', size=font_size)
 
     # Mengukur lebar dan tinggi teks menggunakan textbbox
     text_bbox = draw.textbbox((0, 0), quote_text, font=font)
@@ -36,7 +49,16 @@ def generate_quotes(quote_text, quote_color, quote_background, quote_credit):
 
     # Menentukan posisi tengah secara horizontal dan vertical
     x_position = (image.width - text_width) // 2
-    y_position = (image.height - text_height) // 2
+
+    # Ganti 60 dengan panjang maksimum baris teks yang Anda inginkan
+    text_wrap_size = 40
+    wrapped_text = textwrap.wrap(quote_text, width=text_wrap_size)
+
+    # Menghitung tinggi total dari semua baris teks yang di-"word wrap"
+    total_text_height = len(wrapped_text) * (text_height + 10)
+
+    # Menentukan posisi tengah secara vertikal
+    y_position = (image.height - total_text_height) // 2
 
     # Mengatur jarak antar baris
     line_spacing = 10
@@ -45,11 +67,13 @@ def generate_quotes(quote_text, quote_color, quote_background, quote_credit):
     result_folder = os.path.join("results", formatted_date)
     # Membuat direktori jika belum ada
     os.makedirs(result_folder, exist_ok=True)
+    # Membuat nama file gambar dengan UUID yang unik
+    unique_filename = generate_unique_filename()
     # Membuat nama file gambar
-    image_filename = os.path.join(result_folder, f"{formatted_date}.png")
+    image_filename = os.path.join(result_folder, f"{formatted_date}_{unique_filename}.png")
 
     # Menggambar teks dengan jarak antar baris
-    for line in quote_text.splitlines():
+    for line in wrapped_text:
         line_bbox = draw.textbbox((0, 0), line, font=font)
         line_width = line_bbox[2] - line_bbox[0]
         line_height = line_bbox[3] - line_bbox[1]
