@@ -6,7 +6,7 @@ with open("./quote.text", "r") as file:
 
 # Iterate through the quotes and generate images
 quote_color = "#000"
-quote_background = "#e8ccbc;#f2f2f2;#d0c9bf;#d7c9b5;#d3e8e1;#b0bea2;#cdb0b0;#b9deea"
+quote_background = "#deebf3;#e7dcc6;#fff;#e7dcc6;#f1ebdf;#f2eadf;#e9e7da"
 quote_credit = "@everydaywillbeokay"
 
 for quote_text in quotes:
