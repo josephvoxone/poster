@@ -1,7 +1,7 @@
 from generate import generate_quotes
 
 # Contoh penggunaan fungsi dengan teks kutipan dan teks kredit
-with open("./quote.text", "r") as file:
+with open("./quote.txt", "r") as file:
     quotes = file.read().splitlines()
 
 # Iterate through the quotes and generate images

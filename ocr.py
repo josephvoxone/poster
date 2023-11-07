@@ -3,10 +3,10 @@ import pytesseract
 import os
 
 # Definisikan direktori folder dengan file JPG
-folder_path = "./faithfulfootprints"
+folder_path = "./instaloader/thedeepestmessages"
 
 # Definisikan nama file output TXT
-output_file = "faithfulfootprints.txt"
+output_file = "thedeepestmessages.txt"
 
 # Fungsi untuk mengonversi gambar ke teks dan menyimpannya dalam file TXT
 def convert_image_to_text(image_path):
